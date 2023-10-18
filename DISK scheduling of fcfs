@@ -1,0 +1,24 @@
+#include<stdio.h>
+#include<stdlib.h>
+int main()
+{
+	int request[10];
+	int n,i,head,total_seektime=0,avg_skt;
+	printf("enter the no of requests=");
+	scanf("%d",&n);
+	printf("enter the requests\n");
+	for(i=0;i<n;i++)
+	{
+		scanf("%d",&request[i]);
+	}
+	printf("enter the intial head position=");
+	scanf("%d",&head);
+	for(i=0;i<n;i++)
+	{
+		total_seektime+=abs(request[i]-head);
+		head=request[i];
+	}
+	avg_skt=total_seektime/n;
+	printf("THE total seek time = %d",total_seektime);
+	printf("\naverage seek time = %d",avg_skt);	
+}
