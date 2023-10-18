@@ -1,0 +1,52 @@
+#include <stdio.h>
+#include <stdlib.h>
+#include <limits.h>
+
+int main() {
+    int n, head;
+    
+    printf("Enter the number of disk requests: ");
+    scanf("%d", &n);
+    
+    int requestQueue[n];
+    
+    printf("Enter the disk request queue: ");
+    for (int i = 0; i < n; i++) {
+        scanf("%d", &requestQueue[i]);
+    }
+    
+    printf("Enter the initial head position: ");
+    scanf("%d", &head);
+
+    int seekTime = 0;
+
+    int visited[n];
+    for (int i = 0; i < n; i++) {
+        visited[i] = 0;
+    }
+
+    for (int i = 0; i < n; i++) {
+        int shortestSeek = INT_MAX;
+        int shortestIndex = -1;
+
+        for (int j = 0; j < n; j++) {
+            if (!visited[j]) {
+                int seek = abs(head - requestQueue[j]);
+                if (seek < shortestSeek) {
+                    shortestSeek = seek;
+                    shortestIndex = j;
+                }
+            }
+        }
+
+        visited[shortestIndex] = 1;
+        seekTime += shortestSeek;
+        head = requestQueue[shortestIndex];
+
+        printf("Move from %d to %d, Seek Time = %d\n", head - shortestSeek, head, shortestSeek);
+    }
+
+    printf("Total Seek Time = %d\n", seekTime);
+    
+    return 0;
+}
